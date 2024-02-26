@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Box model 2</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        box-sizing: border-box;
+
+        font-size: 25px;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      .container {
+        width: min-content;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: red;
+        border: 20px solid rgb(221, 221, 221);
+      }
+      .box {
+        background-color: black;
+        border: 30px solid blue;
+        border-radius: 30px;
+      }
+      .container p {
+        color: white;
+        background: rgb(0, 0, 0);
+      }
+      .container2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      .container2 p{
+        width: 100%;
+        color: white;
+
+      }
+      .container2 .img-text {
+        overflow: auto; /* To clear the float */
+    }
+    
+    .container2 .img-text img {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .container2 .img-text:nth-child(odd) img {
+        float: left;
+        margin-right: 10px;
+    }
+    
+    .container2 .img-text:nth-child(even) img {
+        float: right;
+        margin-left: 10px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box"><p>Internet</p></div>
+      <div class="box"><p>Web</p></div>
+      <div class="box"><p>Programming</p></div>
+    </div>
+    <div class="container2">
+        <div class="img-text"><img src="https://picsum.photos/200/200" alt=""></img>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum beatae itaque possimus magnam! Beatae aspernatur, quia perspiciatis iure, distinctio repellat obcaecati commodi qui eligendi corporis deserunt, cumque amet repellendus velit!</p>
+        </div>
+        <div class="img-text"><img src="https://picsum.photos/200/200" alt=""></img>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum beatae itaque possimus magnam! Beatae aspernatur, quia perspiciatis iure, distinctio repellat obcaecati commodi qui eligendi corporis deserunt, cumque amet repellendus velit!</p>
+        </div>
+    </div>
+  </body>
+</html>

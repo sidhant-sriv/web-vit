@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Consolas;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 500px;
+        margin: auto;
+      }
+
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="entryForm">
+      Age:
+      <input
+        type="number"
+        id="age"
+        name="age"
+        onchange="formHandler.validateAgeCategory()"
+      />
+      <br />
+      Age Category:
+      <select
+        id="ageCategory"
+        name="ageCategory"
+        onchange="formHandler.validateAgeCategory()"
+      >
+        <option value="">Select...</option>
+        <option value="child">Child</option>
+        <option value="adult">Adult</option>
+        <option value="senior">Senior</option>
+      </select>
+      <br />
+      Entry Category:
+      <select id="entryCategory" name="entryCategory">
+        <option value="">Select...</option>
+        <option value="college">College</option>
+        <option value="family">Family</option>
+      </select>
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+      class FormHandler {
+        constructor() {
+          this.ageField = document.getElementById("age");
+          this.ageCategoryField = document.getElementById("ageCategory");
+          this.entryCategoryField = document.getElementById("entryCategory");
+          this.messageField = document.getElementById("message");
+        }
+
+        validateAgeCategory() {
+          let age = this.ageField.value;
+          let ageCategory = this.ageCategoryField.value;
+
+          if (ageCategory === "child" && age >= 12) {
+            this.messageField.textContent =
+              "Child category is for under 12 years old.";
+            return false;
+          } else if (ageCategory === "senior" && age < 60) {
+            this.messageField.textContent =
+              "Senior category is for 60 years old or older.";
+            return false;
+          }
+
+          this.messageField.textContent = "";
+          return true;
+        }
+
+        validateForm() {
+          if (
+            !this.ageField.value ||
+            !this.ageCategoryField.value ||
+            !this.entryCategoryField.value
+          ) {
+            this.messageField.textContent = "All fields must be filled out.";
+            return false;
+          }
+
+          if (!this.validateAgeCategory()) {
+            return false;
+          }
+
+          this.messageField.textContent =
+            "Entry fee: Rs. " + this.calculateEntryFee();
+          alert(
+            "Form submitted successfully\n" + this.messageField.textContent
+          );
+          return true;
+        }
+
+        calculateEntryFee() {
+          let ageCategory = this.ageCategoryField.value;
+          let entryCategory = this.entryCategoryField.value;
+
+          if (ageCategory === "child") {
+            return 300;
+          } else if (ageCategory === "adult") {
+            if (entryCategory === "college") {
+              return 400;
+            } else if (entryCategory === "family") {
+              return 500;
+            }
+          } else if (ageCategory === "senior") {
+            return 450;
+          }
+
+          return 0;
+        }
+      }
+
+      let formHandler = new FormHandler();
+
+      document.getElementById("entryForm").onsubmit = function (e) {
+        e.preventDefault();
+        formHandler.validateForm();
+      };
+    </script>
+  </body>
+</html>

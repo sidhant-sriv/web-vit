@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    font-family: Consolas;
+    padding: 20px;
+}
+
+#vegItems {
+    color: green;
+    font-weight: bold;
+    display: none;
+}
+
+#nonVegItems {
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<form id="orderForm">
+    Hotel Name: <input type="text" id="hotelName" name="hotelName">
+    <br>
+    Food Preference: 
+    <input type="radio" id="veg" name="foodPreference" value="veg" onchange="displayFoodItems()">
+    <label for="veg">Veg</label>
+    <input type="radio" id="nonVeg" name="foodPreference" value="nonVeg" onchange="displayFoodItems()">
+    <label for="nonVeg">Non-Veg</label>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<ul id="vegItems">
+    <li>Paneer Tikka</li>
+    <li>Aloo Gobi</li>
+    <li>Chole Bhature</li>
+</ul>
+
+<ul id="nonVegItems">
+    <li>Chicken Biryani</li>
+    <li>Mutton Rogan Josh</li>
+    <li>Fish Curry</li>
+</ul>
+
+<script>
+function displayFoodItems() {
+    let foodPreference = document.querySelector('input[name="foodPreference"]:checked').value;
+    document.getElementById('vegItems').style.display = (foodPreference === 'veg') ? 'block' : 'none';
+    document.getElementById('nonVegItems').style.display = (foodPreference === 'nonVeg') ? 'block' : 'none';
+}
+
+document.getElementById('orderForm').onsubmit = function(e) {
+    e.preventDefault();
+    // Handle form submission
+};
+</script>
+
+</body>
+</html>
