@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Enter Username</h2>
+<form id="usernameForm">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username" value=""><br>
+  <input type="submit" value="Submit">
+  <button type="button" onclick="updateUsername()">Update Username</button>
+  <button type="button" onclick="optOut()">Opt-out</button>
+</form>
+
+<script>
+window.onload = function() {
+  var username = getCookie("username");
+  if (username) {
+    document.getElementById('username').value = username;
+    alert('Welcome back, ' + username);
+  } else {
+    alert('Welcome, guest');
+  }
+};
+
+document.getElementById('usernameForm').onsubmit = function(e) {
+  e.preventDefault();
+
+  var username = document.getElementById('username').value;
+
+  setCookie("username", username, 7);
+
+  alert('Cookie created successfully');
+  return true;
+};
+
+function updateUsername() {
+  var username = document.getElementById('username').value;
+
+  setCookie("username", username, 7);
+
+  alert('Username updated successfully');
+}
+
+function optOut() {
+  deleteCookie("username");
+
+  alert('You have opted out of being remembered');
+}
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function deleteCookie(cname) {
+  document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+</script>
+
+</body>
+</html>

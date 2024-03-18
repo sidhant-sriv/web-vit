@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RGB Color Form</title>
+        <style>
+            body {
+                font-family: "Courier New", Courier, monospace;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+            }
+
+            form {
+                margin: 20px;
+                padding: 20px;
+                border-radius: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: #f4f4f4;
+                width: 50px;
+            }
+            #colorSquare {
+                width: 100px;
+                height: 100px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="colorForm">
+            <label for="red">Red:</label><br />
+            <input type="number" id="red" name="red" min="0" max="255" onchange="updateColor()" /><br />
+            <label for="green">Green:</label><br />
+            <input type="number" id="green" name="green" min="0" max="255" onchange="updateColor()" /><br />
+            <label for="blue">Blue:</label><br />
+            <input type="number" id="blue" name="blue" min="0" max="255" onchange="updateColor()" /><br />
+            <input type="submit" value="Submit" style="display: none;" />
+        </form>
+
+        <div id="colorSquare"></div>
+
+        <script>
+            function updateColor() {
+                var red = document.getElementById("red").value;
+                var green = document.getElementById("green").value;
+                var blue = document.getElementById("blue").value;
+
+                var colorSquare = document.getElementById("colorSquare");
+                colorSquare.style.backgroundColor =
+                    "rgb(" + red + "," + green + "," + blue + ")";
+            }
+        </script>
+    </body>
+</html>

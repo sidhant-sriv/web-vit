@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        color: #000;
+        font-weight: 400;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      form {
+        margin: 0 auto;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      input[type="file"] {
+        margin: 10px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+    <h1>Jobseeker Registration</h1>
+    <form id="jobseekerForm">
+      <label for="resume">Upload your Resume (PDF/DOC, max 500KB):</label><br />
+      <input type="file" id="resume" name="resume" accept=".pdf" /><br />
+      <br />
+      <label for="photo">Upload your Photograph (JPEG/JPG, max 1MB):</label>
+      ><br />
+      <input type="file" id="photo" name="photo" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      document.getElementById("jobseekerForm").onsubmit = function (e) {
+        e.preventDefault();
+
+        var resume = document.getElementById("resume").files[0];
+        var photo = document.getElementById("photo").files[0];
+
+        // Validate resume
+        if (resume) {
+          if (resume.size > 500 * 1024) {
+            alert("Resume file size should be within 500KB");
+            return false;
+          }
+          if (!resume.type.includes("pdf") && !resume.type.includes("doc")) {
+            alert(
+              "Invalid resume file type. Only PDF and DOC files are allowed."
+            );
+            return false;
+          }
+        } else {
+          alert("Please upload your resume");
+          return false;
+        }
+
+        // Validate photo
+        if (photo) {
+          if (photo.size > 1024 * 1024) {
+            alert("Photo file size should be within 1MB");
+            return false;
+          }
+          if (!photo.type.includes("jpeg") && !photo.type.includes("jpg")) {
+            alert(
+              "Invalid photo file type. Only JPEG and JPG files are allowed."
+            );
+            return false;
+          }
+        } else {
+          alert("Please upload your photograph");
+          return false;
+        }
+
+        var formData = new FormData();
+        formData.append("resume", resume);
+        formData.append("photo", photo);
+
+        alert("Form submitted successfully");
+        return true;
+      };
+    </script>
+  </body>
+</html>
